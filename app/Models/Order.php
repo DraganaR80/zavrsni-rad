@@ -20,7 +20,11 @@ protected $fillable=
 ];
 
 
+public function use(){
+return $this->belongsTo(User::class);
 
+
+}
 
 
 

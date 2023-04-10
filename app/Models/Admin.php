@@ -1,25 +1,13 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Admin extends  Authenticatable
 {
     use HasFactory;
-    protected $fillable=[
-'type',
-'name',
-'quantity',
-'price'
 
-    ];
-
-public function getAll(){
-
-
-    
-}
-
+    protected $hidden=['password'];
 }
