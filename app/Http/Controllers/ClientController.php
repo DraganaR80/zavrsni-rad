@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\ClientStoreRequest;
 use App\Models\Client;
 use App\Models\Menu;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ public function index(){
 }
 public function create(){
 //forma gde kreiramo klijente
-$menu=Menu::all();
+$menu=Menu::all();//ovo preispitati
 return view(view:'clients.create')->with([
     'menu'=>$menu,
 ]);
@@ -33,22 +35,35 @@ return view(view:'clients.edit')->with([
      'client'=>$client,
 ]);
 }
-public function store(){
+public function store(ClientStoreRequest $request){
 //cuvanje podataka
+$client= new Client(); 
+$client-> first_name= $request->input(key:'first_name');
+$client->surname_name=$request->intput(key:'surname_name');
+$client->email= $request->input(key:'email');
+$client->phone=$request->input(key:'phone');
+$client->save();
 
-
+return redirect()->route(route:'clients.index');
 
 }
 
-public function update(){
+public function update(ClientStoreRequest $request, int $id){
 //za menjanje vec postojecih 
-
-
+$client=Client::findOrFail($id);
+$client-> first_name= $request->input(key:'first_name');
+$client->surname_name=$request->intput(key:'surname_name');
+$client->email= $request->input(key:'email');
+$client->phone=$request->input(key:'phone');
+$client->save();
+return redirect()->route(route:'clients.index');
 }
 
-public function destroy(){
-
+public function destroy(ClientStoreRequest $request, int $id){
+    $client=Client::findOrFail($id);
+    $client->delete();
     //brisanje klijenata
+    return redirect()->route(route:'clients.index');
 }
 
 

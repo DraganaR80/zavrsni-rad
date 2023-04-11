@@ -16,10 +16,10 @@ class Menu extends Model
 
     ];
 
-public function getAll(){
+public function clients(){
 
 
-    
+    return $this->belongsToMany(related:Client::class,table:'orders');
 }
 
 }

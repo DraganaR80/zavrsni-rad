@@ -20,13 +20,18 @@ protected $fillable=
 ];
 
 
-public function use(){
-return $this->belongsTo(User::class);
+public function client(){
+return $this->belongsTo(related: Client::class);
 
 
 }
 
+public function menu(){
 
+    return$this->belongsTo(related:Menu::class);
+
+
+}
 
 
 }

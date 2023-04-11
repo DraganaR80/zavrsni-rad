@@ -7,5 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    use HasFactory;
+    protected $casts=[
+
+      'first_name'=>'string',
+      'surname_name'=>'string',
+      'email'=>'string',
+      'phone'=>'string',
+
+    ];
+
+public function orders(){
+
+    return $this->belongsToMany(related:Order::class, table:'orders');
+
+
+
+}
+
 }
