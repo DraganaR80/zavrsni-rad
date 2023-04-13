@@ -1,8 +1,6 @@
 <?php
 
-
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::get('/admin/reservations', [ReservationsController::class,'index'])->name('reservation');
-Route::get('/clients',[ClientController::class,'index'])->name(name:'client.index');
-Route::get('/clients/create',[ClientController::class,'create'])->name(name:'clients.create');
-Route::get('/clients/{id}/edit',[ClientController::class,'edit'])->name(name:'clients.edit');
-Route::post('/clients/store',[ClientController::class,'store'])->name(name:'clients.store');
-Route::put('/clients/{id}/update',[ClientController::class,'update'])->name(name:'clients.update');
-Route::delete('clients/{id}/delete',[ClientController::class,'destroy'])->name(name:'clients.destroy');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

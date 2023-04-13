@@ -26,6 +26,9 @@ class ClientStoreRequest extends FormRequest
             'surname_name'=>['required','string','max:255'],
             'email'=>['required','email','max:255','unique:clients,email'],
              'phone'=>['sting','max:255'],
+
+             //'menu_ids'=>['nullable','array'],
+             //'product_ids.*'=>['required','integer', //Rule::exists(table:'menu',column:'id'),]
         ];
     }
 }

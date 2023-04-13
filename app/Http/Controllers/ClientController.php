@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\ClientService;
 use App\Http\Requests\ClientStoreRequest;
 use App\Models\Client;
 use App\Models\Menu;
@@ -25,9 +25,9 @@ return view(view:'clients.create')->with([
 ]);
 }
 
-public function edit(Request $request,int $id){
+public function edit(Request $request,Client $client){
 //iymena klijenata
-$client= Client::findOrFail($id);
+////$client= Client::findOrFail($id);
 $menu= Menu::all();
 
 return view(view:'clients.edit')->with([
@@ -38,29 +38,22 @@ return view(view:'clients.edit')->with([
 public function store(ClientStoreRequest $request){
 //cuvanje podataka
 $client= new Client(); 
-$client-> first_name= $request->input(key:'first_name');
-$client->surname_name=$request->intput(key:'surname_name');
-$client->email= $request->input(key:'email');
-$client->phone=$request->input(key:'phone');
-$client->save();
-
+$clientService=new ClientService();
+$clientService->storeClient($request,$client);
 return redirect()->route(route:'clients.index');
 
 }
 
-public function update(ClientStoreRequest $request, int $id){
+public function update(ClientStoreRequest $request, Client $client){
 //za menjanje vec postojecih 
-$client=Client::findOrFail($id);
-$client-> first_name= $request->input(key:'first_name');
-$client->surname_name=$request->intput(key:'surname_name');
-$client->email= $request->input(key:'email');
-$client->phone=$request->input(key:'phone');
-$client->save();
+//$client=Client::findOrFail($id);
+$clientService=new ClientService();
+$clientService->storeClient($request,$client);
 return redirect()->route(route:'clients.index');
 }
 
-public function destroy(ClientStoreRequest $request, int $id){
-    $client=Client::findOrFail($id);
+public function destroy(ClientStoreRequest $request, Client $client){
+    //$client=Client::findOrFail($id);
     $client->delete();
     //brisanje klijenata
     return redirect()->route(route:'clients.index');
