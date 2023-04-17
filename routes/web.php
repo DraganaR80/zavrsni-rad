@@ -24,6 +24,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 // za neulogovanog
+
+
 //za admina
 
 //Route::get('admin/login',[AdminController::class, 'index'])->name('login_form'); //ovo je forma za login
