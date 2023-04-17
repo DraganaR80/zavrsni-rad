@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use App\Services\MenuService;
+use App\Http\Requests\MenuRequest;
 
 class MenusController extends Controller
 {
@@ -12,8 +14,8 @@ class MenusController extends Controller
      */
     public function index()
     {
-        $menu = Menu::all();
-        return view ('menu.index',['menu'=> $menu]);
+        $menu = Menu::paginate(10);
+        return response ()->json(['menu'=> $menu]);
         
     }
 
@@ -22,31 +24,20 @@ class MenusController extends Controller
      */
     public function create()
     {
-        //
+        return view(view:'menu.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function store(MenuRequest $request){
+          $service=new MenuService();
+          $service->storeMenu($request, new Menu());
+          return redirect()->route(route:'menu.index');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Menu $menu)
-    {
-        //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Menu $menu)
+   
+   
+    public function edit(Request $request,Menu $menu)
     {
-        //
+        return view(view:'menu.edit')-> with(['menu'=>$menu,]); //vraca taj proizvod kioji se edituje
     }
 
     /**
@@ -54,14 +45,19 @@ class MenusController extends Controller
      */
     public function update(Request $request, Menu $menu)
     {
-        //
+        $service=new MenuService();
+        $service->storeMenu($request, $menu);
+
+        return redirect()->route(route:'products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Menu $menu)
+    public function destroy(Request $request,Menu $menu)
     {
-        //
+        $menu->delete();
+
+        return redirect()->route(route:'menu.index');
     }
 }

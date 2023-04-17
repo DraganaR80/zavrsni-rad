@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $casts=[
+    protected $fillable=[
 
       'first_name'=>'string',
       'surname_name'=>'string',
@@ -16,12 +16,12 @@ class Client extends Model
 
     ];
 
-public function orders(){
 
-    return $this->belongsToMany(related:Order::class, table:'orders');
+public function menus(){
 
+  return $this->belongsToMany(related:Menu::class,table:'orders');
+}
 
 
 }
 
-}

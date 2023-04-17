@@ -36,7 +36,7 @@ return view(view:'clients.edit')->with([
 ]);
 }
 public function store(ClientStoreRequest $request){
-//cuvanje podataka
+//cuvanje klijenta 
 $client= new Client(); 
 $clientService=new ClientService();
 $clientService->storeClient($request,$client);
@@ -44,7 +44,7 @@ return redirect()->route(route:'clients.index');
 
 }
 
-public function update(ClientStoreRequest $request, Client $client){
+public function update(ClientStoreRequest $request, Client $client){ // client store request jeza validaciju klijenta
 //za menjanje vec postojecih 
 //$client=Client::findOrFail($id);
 $clientService=new ClientService();

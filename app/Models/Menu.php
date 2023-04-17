@@ -18,8 +18,7 @@ class Menu extends Model
 
 public function clients(){
 
-
-    return $this->belongsToMany(related:Client::class,table:'orders');
+    return $this->belongsToMany(related:Client::class, table:'orders');
 }
 
 }

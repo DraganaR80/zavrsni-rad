@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('client_id');
-            $table->integer('product_id');
+            $table->foreignId(column:'client_id');
+            $table->foreignId(column:'menu_id');
             $table->string('name and surname');
             $table->string('adress');
             $table->string('phone');
@@ -22,6 +22,19 @@ return new class extends Migration
             $table->float('delivery price');
             $table->float('total');
             $table->timestamps();
+
+
+            $table->foreing(columns:'client_id')
+            ->references (columns:'id')
+            ->on (table:'clients')
+            ->casadeOnDelete();
+
+            $table->foreign (columns:'menu_id')
+            ->referencs(columns:'id')
+            ->on(table:'menus')
+            ->cascadeOnDelete();
+            
+
         });
     }
 

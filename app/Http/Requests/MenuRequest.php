@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderRequest extends FormRequest
+class MenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,8 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'selected'=>['nullable'],
+            'selected'=>['nullable'],// za checkbox
+            'name'=>['required','string','max:255'],
             
 
         ];
